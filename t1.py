@@ -8,7 +8,7 @@ import streamlit as st
 from streamlit_chat import message
 
 
-td2 = pd.read_pickle('/Users/dhl/Desktop/BChat/td2.pkl')
+td2 = pd.read_pickle('./td2.pkl')
 model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
 
 def cos_sim(A, B):
