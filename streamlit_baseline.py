@@ -8,7 +8,7 @@ import streamlit as st
 from streamlit_chat import message
 
 
-embedding_data = pd.read_pickle('/Users/dhl/Desktop/BChat/final/embedding_vector.pkl')
+embedding_data = pd.read_pickle('/Users/hana/Documents/GitHub/NLP_project/embedding_vector.pkl')
 model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
 
 #함수설정
@@ -31,7 +31,7 @@ def make_label2_Q(row):
 embedding_data['label2_Q'] = embedding_data.apply(lambda row: make_label2_Q(row), axis=1)
 
 #stremlit
-st.header("Bcha (Demo)")
+st.header("BITAmin Chatbot 💬🤖")
  
 if 'generated' not in st.session_state:
     st.session_state['generated'] = []
@@ -65,10 +65,16 @@ if submitted and user_input:
         answer = found_words[0] +'에 대한 비타민 세션 자료입니다!\n' + score_max['A']
 
         for word in found_words:
-            answer += '\n\n' + word + '에 대해 더 알고 싶으시면 아래 링크를 클릭하세요' + '\n https://www.google.com/search?q=' + word
+            answer += '\n\n' + word + '에 대해 더 알고 싶으시면 아래 링크를 클릭하세요!' + '\n https://www.google.com/search?q=' + word
 
-    else : 
+    elif (score_max['label'] == 1):
         answer = score_max['A']
+
+    elif (score_max['label'] == 3):
+        answer = score_max['Q'] + '에 해당되는 발표자료입니다.\n' + score_max['A']
+    
+    else:
+        answer = '요청하신 주제에 해당되는 발표자료가 아닐 수 있지만... 👉🏻👈🏻 한번 클릭해주시면 감사하겠습니다 🙂🫶🏻\n' + score_max['A']
  
     st.session_state.past.append(user_input)
     st.session_state.generated.append(answer)
