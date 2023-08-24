@@ -8,7 +8,7 @@ import streamlit as st
 from streamlit_chat import message
 
 
-embedding_data = pd.read_pickle('/Users/hana/Documents/GitHub/NLP_project/embedding_vector.pkl')
+embedding_data = pd.read_pickle('./embedding_vector.pkl')
 model = SentenceTransformer('sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens')
 
 #함수설정
